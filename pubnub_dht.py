@@ -4,7 +4,7 @@ import numpy as np
 from pubnub import Pubnub
 import time
 
-pubnub = Pubnub(publish_key='pub-c-f0255130-06a3-4d8c-8907-b5d341c895ff', subscribe_key='sub-c-d7752268-bd96-11e6-b38f-02ee2ddab7fe')
+pubnub = Pubnub(publish_key='demo', subscribe_key='demo')
 
 for i in range(20):
 

@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://pubnub.github.io/eon/v/eon/1.0.0/eon.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://pubnub.github.io/eon/v/eon/1.0.0/eon.css"/>
+  </head>
+  <body>
+    <div id="humidity-chart"></div>
+	<div id="temperature-chart"></div>
+    <script>
+
+		var pubnub = new PubNub({
+			publishKey: 'pub-c-f0255130-06a3-4d8c-8907-b5d341c895ff',
+			subscribeKey: 'sub-c-d7752268-bd96-11e6-b38f-02ee2ddab7fe'
+		});
+
+		var humidity_channel = "humidity";
+		var temperature_channel = "temperature";
+	  
+		eon.chart({
+		  pubnub: pubnub,
+		  channels: [humidity_channel],
+		  generate: {
+			bindto: '#humidity-chart',
+			data: {
+			  type: 'gauge',
+			},
+			gauge: {
+			  min: 0,
+			  max: 100
+			},
+			
+			color: {
+			  pattern: ['#FF0000', '#F6C600', '#60B044'],
+			  threshold: {
+				values: [30, 60, 90]
+			  }
+			}
+		  }
+		});
+		
+		eon.chart({
+			channels: [temperature_channel],
+			flow: true,
+			pubnub: pubnub,
+			generate: {
+				bindto: '#temperature-chart',
+				data: {
+					type: 'spline',
+					labels: true
+				}
+			}
+		});
+    </script>
+    <!--script>
+      setInterval(function(){
+
+        pubnub.publish({
+          channel: channel,
+          message: {
+            eon: {
+              'Austin': Math.floor(Math.random() * 99),
+              'New York': Math.floor(Math.random() * 99),
+              'San Francisco': Math.floor(Math.random() * 99),
+              'Portland': Math.floor(Math.random() * 99)
+            }
+          }
+        });
+
+      }, 1000);
+    </script-->
+  </body>
+</html>
