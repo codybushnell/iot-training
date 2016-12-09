@@ -12,4 +12,4 @@ while True:
 
     pubnub.publish('temperature', {'eon': {'temperature_f': temp_F, 'temperature_c': temp_C}})
     pubnub.publish('humidity', {'eon': {'humidity': humidity}})
-	time.sleep(5)
+    time.sleep(5)
